@@ -1,7 +1,7 @@
 LauchCafeLunch::Application.routes.draw do
+  root :to => "lunches#index"
+
   resources :attendees
-
-
   resources :lunches
 
 
