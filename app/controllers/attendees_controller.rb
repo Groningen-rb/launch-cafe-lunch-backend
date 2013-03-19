@@ -1,2 +1,2 @@
-class AttendeesController < ApplicationController
+class AttendeesController < InheritedResources::Base
 end

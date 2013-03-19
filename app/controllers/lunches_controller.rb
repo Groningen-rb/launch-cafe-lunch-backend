@@ -1,2 +1,2 @@
-class LunchesController < ApplicationController
+class LunchesController < InheritedResources::Base
 end
