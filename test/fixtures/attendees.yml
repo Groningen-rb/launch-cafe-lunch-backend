@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  references: 
+  emailaddress: MyString
+  name: MyString
+  pluses: 1
+
+two:
+  references: 
+  emailaddress: MyString
+  name: MyString
+  pluses: 1
