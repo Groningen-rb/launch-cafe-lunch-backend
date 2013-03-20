@@ -45,18 +45,13 @@ namespace :deploy do
     restart
   end
 
-  before "deploy:assets:precompile" do
-    # desc "Symlinks the database.yml"
-    # task :symlink_db, :roles => :app do
-      run "ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    # end
+  desc "Symlink shared configs and folders on each release."
+    task :symlink_shared do
+      run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
 end
 
-# in RAILS_ROOT/config/deploy.rb:
-
 namespace :db do
-  # desc "reload the database with seed data"
   task :seed do
     run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
   end
@@ -64,14 +59,6 @@ namespace :db do
   task :drop do
     run "cd #{current_path}; rake db:drop RAILS_ENV=#{rails_env}"
   end
-
- desc "reload the database with sample seed data"
- task :seed_sample do
-   run "cd #{current_path}; rake db:seed_sample RAILS_ENV=#{rails_env}"
- end
 end
 
-
-# task :pipeline_precompile do
-#    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
-# end
+before 'deploy:assets:precompile', 'deploy:symlink_shared'
