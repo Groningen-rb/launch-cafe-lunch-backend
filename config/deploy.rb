@@ -39,6 +39,7 @@ namespace :deploy do
   desc "deploy and reset the database"
   task :reset do
     update
+    migrate
     db.drop
     db.seed
     restart
@@ -47,15 +48,12 @@ namespace :deploy do
   before "deploy:assets:precompile" do
     # desc "Symlinks the database.yml"
     # task :symlink_db, :roles => :app do
-      run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+      run "ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     # end
   end
 end
 
 # in RAILS_ROOT/config/deploy.rb:
-
-namespace :deploy do
-end
 
 namespace :db do
   # desc "reload the database with seed data"
